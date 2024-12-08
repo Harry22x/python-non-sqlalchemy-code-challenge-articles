@@ -39,7 +39,7 @@ class Article:
         if isinstance(author,Author):
             self._author = author
         else:
-            raise Exception("Author must be a string")
+            raise Exception("Author must be an istance of the Author class")
 
 
 class Author:
