@@ -1,13 +1,13 @@
 class Article:
     all = []
-    magazine_objects =[]
+
     def __init__(self, author, magazine, title):
         self.author = author
         self.magazine = magazine
         self.title = title
         self._title_set = True
         Article.all.append(self)
-        Article.magazine_objects.append(magazine)
+        
 
     @property
     def title(self):
@@ -18,7 +18,7 @@ class Article:
         if (not hasattr(self, '_title_set') and isinstance(value, str) and 4<len(value)<51):
             self._title = value
         else:
-             raise Exception("title must be a string of length greater than 4 and less than 51 and cannot be changed once instantiated")
+             raise Exception("Title must be a string of length greater than 4 and less than 51 and cannot be changed once instantiated")
       
 
     @property
@@ -39,7 +39,7 @@ class Article:
         if isinstance(author,Author):
             self._author = author
         else:
-            raise Exception("Author must be an istance of the Author class")
+            raise Exception("Author must be an instance of the Author class")
 
 
 class Author:
@@ -58,7 +58,7 @@ class Author:
         if (not (hasattr(self, '_name_set')) and isinstance(value,str) and len(value)>0 ):
             self._name = value
         else:
-            raise Exception("name must be a string of length greater than 0 and cannot be changed once instantiated")
+            raise Exception("Name must be a string of length greater than 0 and cannot be changed once instantiated")
         
     def articles(self):
         pass
@@ -74,11 +74,11 @@ class Author:
 
     def topic_areas(self):
         pass
-        my_list = list({article.magazine.category for article in Article.all if article.author == self})
-        if len(my_list) == 0:
+        topic_list = list({article.magazine.category for article in Article.all if article.author == self})
+        if len(topic_list) == 0:
             return None
         else:
-            return my_list
+            return topic_list
         
 
 class Magazine:
@@ -97,7 +97,7 @@ class Magazine:
         if(isinstance(value,str) and 1<len(value)<17):
             self._name = value
         else:
-            raise Exception("name must be a string of length greater than 0 and cannot be changed once instantiated")
+            raise Exception("Name must be a string of length greater than 0 and less than 17 and cannot be changed once instantiated")
         
 
     @property
@@ -122,22 +122,22 @@ class Magazine:
 
     def article_titles(self):
         pass
-        my_list = [article.title for article in Article.all if article.magazine == self]
-        if len(my_list) == 0:
+        title_list = [article.title for article in Article.all if article.magazine == self]
+        if len(title_list) == 0:
             return None
         else:
-            return my_list
+            return title_list
     def contributing_authors(self):
         pass
-        my_list = [article.author for article in Article.all if article.magazine == self]
-        my_list_filtered = []
-        for author in my_list:
-            if(my_list.count(author)>2):
-                my_list_filtered.append(author)
-        if len(my_list_filtered) == 0:
+        author_list = [article.author for article in Article.all if article.magazine == self]
+        author_list_filtered = []
+        for author in author_list:
+            if(author_list.count(author)>2):
+                author_list_filtered.append(author)
+        if len(author_list_filtered) == 0:
             return None
         else:
-            return list(set(my_list_filtered))
+            return list(set(author_list_filtered))
 
     @classmethod
     def top_publisher(cls):
@@ -158,7 +158,7 @@ class Magazine:
         if not magazine_article_count:
             return None
         
-        top_mag = max(magazine_article_count, key=magazine_article_count.get)
+        top_magazine = max(magazine_article_count, key=magazine_article_count.get)
         
-        return top_mag    
+        return top_magazine  
    
